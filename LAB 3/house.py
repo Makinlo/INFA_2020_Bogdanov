@@ -117,14 +117,15 @@ def cloud(x: int, y: int, r=22):
     d.circle(screen, line, (x + int(55 * scale), y - int(20 * scale)), r, 1)
 
 
-tree(535, 215, 0.75, 2)
-tree(245, 225)
+
 house(50, 225)
 house(400, 205, 0.66)
 sun()
 cloud(95, 80)
 cloud(300, 130, 17)
 cloud(495, 100)
+tree(535, 215, 0.75, 2)
+tree(245, 225)
 
 pygame.display.update()
 clock = pygame.time.Clock()
