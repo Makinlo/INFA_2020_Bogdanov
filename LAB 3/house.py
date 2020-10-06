@@ -1,6 +1,6 @@
 import pygame
-# from pygame.draw import*
 import pygame.draw as d
+import numpy as np
 
 pygame.init()
 
@@ -14,106 +14,118 @@ white = (255, 255, 255)
 black = (23, 23, 23)
 green = (37, 189, 34)
 blue = (143, 243, 250)
-blackgreen = (34, 84, 36)
+black_green = (34, 84, 36)
 line = (110, 110, 110)
 
 screen = pygame.display.set_mode((600, 400))
 
-screen.fill(white)
 FPS = 60
-# Фон
 d.rect(screen, green, (0, 200, 600, 200))
 d.rect(screen, blue, (0, 0, 600, 200))
 
-# Дерево(правое)
-d.rect(screen, brown, (535, 215, 12, 50))
-d.circle(screen, blackgreen, (541, 200), 25, 0)
-d.circle(screen, black, (541, 200), 25, 1)
-d.line(screen, brown, (547, 243), (570, 227), 3)
-d.line(screen, brown, (535, 238), (520, 229), 3)
-# Дерево(левое)
-d.rect(screen, brown, (245, 225, 16, 70))
-d.circle(screen, blackgreen, (253, 190), 44, 0)
-d.circle(screen, black, (253, 190), 44, 1)
-d.line(screen, brown, (261, 250), (305, 230), 6)
-# Дом(левый)
-d.rect(screen, brick, (50, 225, 140, 100))
-d.rect(screen, black, (50, 225, 140, 100), 1)
-d.polygon(screen, krisha, [[50, 225], [190, 225], [120, 155]])
-d.polygon(screen, black, [[50, 225], [190, 225], [120, 155]], 1)
-d.rect(screen, window, (95, 255, 50, 35))
-d.rect(screen, brown, (95, 255, 50, 35), 2)
-d.line(screen, brown, (120, 255), (120, 290), 2)
-d.line(screen, brown, (95, 272), (145, 272), 2)
-d.polygon(screen, black, [[155, 145], [155, 190], [167, 200], [167, 145]])
 
-# Дом(правый)
-d.rect(screen, brick, (400, 205, 93, 66))
-d.rect(screen, black, (400, 205, 93, 66), 1)
-d.polygon(screen, krisha, [[400, 205], [493, 205], [446, 160]])
-d.polygon(screen, black, [[400, 205], [493, 205], [446, 160]], 1)
-d.rect(screen, window, (430, 225, 33, 23))
-d.rect(screen, brown, (430, 225, 33, 23), 2)
-d.line(screen, brown, (446, 225), (446, 248), 2)
-d.line(screen, brown, (430, 236), (463, 236), 2)
-d.polygon(screen, black, [[470, 150], [470, 183], [477, 191], [477, 150]])
+def tree(x: int, y: int, scale=1.0, branches=1):
+    """
+    draws tree of given size in given coordinates
 
-
-# Солнце
-d.circle(screen, yellow, (45, 45), 30)
-d.line(screen, yellow, (45, 0), (45, 90), 3)
-d.line(screen, yellow, (0, 45), (90, 45), 3)
-d.line(screen, yellow, (11, 11), (79, 79), 3)
-d.line(screen, yellow, (79, 11), (11, 79), 3)
-
-# Облака
-# Левое
-r = 22
-x = 95
-d.circle(screen, white, (x, 80), r)
-d.circle(screen, line, (x, 80), r, 1)
-d.circle(screen, white, (x + 25, 80), r)
-d.circle(screen, line, (x + 25, 80), r, 1)
-d.circle(screen, white, (x + 50, 80), r)
-d.circle(screen, line, (x + 50, 80), r, 1)
-d.circle(screen, white, (x + 75, 80), r)
-d.circle(screen, line, (x + 75, 80), r, 1)
-d.circle(screen, white, (x + 20, 60), r)
-d.circle(screen, line, (x + 20, 60), r, 1)
-d.circle(screen, white, (x + 55, 60), r)
-d.circle(screen, line, (x + 55, 60), r, 1)
-
-# Центровое
-d.circle(screen, white, (95 + 205, 80 + 50), 22 - 5)
-d.circle(screen, line, (95 + 205, 80 + 50), 22 - 5, 1)
-d.circle(screen, white, (120 + 200, 80 + 50), 22 - 5)
-d.circle(screen, line, (120 + 200, 80 + 50), 22 - 5, 1)
-d.circle(screen, white, (145 + 195, 80 + 50), 22 - 5)
-d.circle(screen, line, (145 + 195, 80 + 50), 22 - 5, 1)
-d.circle(screen, white, (170 + 195, 80 + 53), 22 - 5)
-d.circle(screen, line, (170 + 195, 80 + 53), 22 - 5, 1)
-d.circle(screen, white, (115 + 204, 60 + 53), 22 - 5)
-d.circle(screen, line, (115 + 204, 60 + 53), 22 - 5, 1)
-d.circle(screen, white, (150 + 196, 60 + 53), 22 - 5)
-d.circle(screen, line, (150 + 196, 60 + 53), 22 - 5, 1)
-
-# Правое
-d.circle(screen, white, (95 + 400, 100), 22)
-d.circle(screen, line, (95 + 400, 100), 22, 1)
-d.circle(screen, white, (120 + 400, 100), 22)
-d.circle(screen, line, (120 + 400, 100), 22, 1)
-d.circle(screen, white, (145 + 400, 100), 22)
-d.circle(screen, line, (145 + 400, 100), 22, 1)
-d.circle(screen, white, (170 + 400, 100), 22)
-d.circle(screen, line, (170 + 400, 100), 22, 1)
-d.circle(screen, white, (115 + 400, 80), 22)
-d.circle(screen, line, (115 + 400, 80), 22, 1)
-d.circle(screen, white, (150 + 400, 80), 22)
-d.circle(screen, line, (150 + 400, 80), 22, 1)
+    :param x: x coordinate
+    :param y: y coordinate
+    :param scale: the size of a tree
+    :param branches: number of branches (maximum 2)
+    :return: image on "screen" plane
+    """
+    if branches != 0 and branches != 1 and branches != 2:
+        print('error')
+    else:
+        if branches == 2:
+            d.line(screen, brown, (x + int(16 * scale), y + int(25 * scale)), (x + int(60 * scale), int(y + 5 * scale)),
+                   int(6 * scale))
+            d.line(screen, brown, (x, y + int(30 * scale)), (x - int(20 * scale), int(y + 18 * scale)),
+                   int(6 * scale))
+        elif branches == 1:
+            d.line(screen, brown, (x + int(16 * scale), y + int(25 * scale)), (x + int(60 * scale), int(y + 5 * scale)),
+                   int(6 * scale))
+        r = 44
+        d.rect(screen, brown, (x, y, int(16 * scale), int(70 * scale)))
+        d.circle(screen, black_green, (x + int(8 * scale), y - int(35 * scale)), int(r * scale), 0)
+        d.circle(screen, black, (x + int(8 * scale), y - int(35 * scale)), int(r * scale), 1)
+        for i in range(8):
+            phi = i * np.pi / 4
+            d.circle(screen, black_green, (
+                x + int(8 * scale) + int(0.75 * r * np.cos(phi)), y - int(35 * scale) + int(0.75 * r * np.sin(phi))),
+                     int(r * scale), 0)
+            d.circle(screen, black, (
+                x + int(8 * scale) + int(0.75 * r * np.cos(phi)), y - int(35 * scale) + int(0.75 * r * np.sin(phi))),
+                     int(r * scale), 1)
 
 
+def house(x: int, y: int, scale=1.0):
+    """
+    draws scaled house in given coordinates
+
+    :param x: x coordinate
+    :param y: y coordinate
+    :param scale: size of a house
+    :return: image on "screen" plane
+    """
+    d.rect(screen, brick, (x, y, int(140 * scale), int(100 * scale)))
+    d.rect(screen, black, (x, y, int(140 * scale), int(100 * scale)), 1)
+    d.polygon(screen, krisha, [[x, y], [x + int(140 * scale), y], [x + int(70 * scale), y - int(70 * scale)]])
+    d.polygon(screen, black, [[x, y], [x + int(140 * scale), y], [x + int(70 * scale), y - int(70 * scale)]], 1)
+    d.rect(screen, window, (x + int(45 * scale), y + int(30 * scale), int(50 * scale), int(35 * scale)))
+    d.rect(screen, brown, (x + int(45 * scale), y + int(30 * scale), int(50 * scale), int(35 * scale)), 2)
+    d.line(screen, brown, (x + int(70 * scale), y + int(30 * scale)), (x + int(70 * scale), y + int(65 * scale)), 2)
+    d.line(screen, brown, (x + int(45 * scale), y + int(47 * scale)), (x + int(95 * scale), y + int(47 * scale)), 2)
+    d.polygon(screen, black, [[x + int(105 * scale), y - int(80 * scale)], [x + int(105 * scale), y - int(35 * scale)],
+                              [x + int(117 * scale), y - int(25 * scale)], [x + int(117 * scale), y - int(80 * scale)]])
 
 
+def sun():
+    """
+    draws sun on a picture
+
+    :return: image on a "screen" plane
+    """
+    d.circle(screen, yellow, (45, 45), 30)
+    d.line(screen, yellow, (45, 0), (45, 90), 3)
+    d.line(screen, yellow, (0, 45), (90, 45), 3)
+    d.line(screen, yellow, (11, 11), (79, 79), 3)
+    d.line(screen, yellow, (79, 11), (11, 79), 3)
+
+
+def cloud(x: int, y: int, r=22):
+    """
+    draws a cloud in given coordinates with given cloud bulb radius
+
+    :param x: x coordinate
+    :param y: y coordinate
+    :param r: bulb radius
+    :return: image on a "screen" plane
+    """
+    scale = float(r) / 22
+    d.circle(screen, white, (x, y), r)
+    d.circle(screen, line, (x, y), r, 1)
+    d.circle(screen, white, (x + int(25 * scale), y), r)
+    d.circle(screen, line, (x + int(25 * scale), y), r, 1)
+    d.circle(screen, white, (x + int(50 * scale), y), r)
+    d.circle(screen, line, (x + int(50 * scale), y), r, 1)
+    d.circle(screen, white, (x + int(75 * scale), y), r)
+    d.circle(screen, line, (x + int(75 * scale), y), r, 1)
+    d.circle(screen, white, (x + int(20 * scale), y - int(20 * scale)), r)
+    d.circle(screen, line, (x + int(20 * scale), y - int(20 * scale)), r, 1)
+    d.circle(screen, white, (x + int(55 * scale), y - int(20 * scale)), r)
+    d.circle(screen, line, (x + int(55 * scale), y - int(20 * scale)), r, 1)
+
+
+
+house(50, 225)
+house(400, 205, 0.66)
+sun()
+cloud(95, 80)
+cloud(300, 130, 17)
+cloud(495, 100)
+tree(535, 215, 0.75, 2)
+tree(245, 225)
 
 pygame.display.update()
 clock = pygame.time.Clock()
