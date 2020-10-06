@@ -57,10 +57,7 @@ def tree(x: int, y: int, scale=1.0, branches=1):
             d.circle(screen, black, (
                 x + int(8 * scale) + int(0.75 * r * np.cos(phi)), y - int(35 * scale) + int(0.75 * r * np.sin(phi))),
                      int(r * scale), 1)
-        # temp_plane = pygame.display.set_mode((600, 400))
-        # d.arc(temp_plane, black, (x + int(8 * scale), y - int(45 * scale), int(2 * r * scale), int(2 * r * scale)), 0, np.pi, 1)
-        # pygame.transform.rotate(temp_plane, np.pi/8)
-        # temp_plane.blit(screen, (0, 0))
+
 
 def house(x: int, y: int, scale=1.0):
     """
