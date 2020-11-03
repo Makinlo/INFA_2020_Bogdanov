@@ -15,6 +15,7 @@ canv.pack(fill=tk.BOTH, expand=1)
 
 class ball():
     """ Создаём 'пулю' """
+
     def __init__(self, x=40, y=450):
         """ Конструктор класса ball
         Args:
@@ -35,7 +36,7 @@ class ball():
             self.y + self.r,
             fill=self.color
         )
-        self.live = 75  # шарик показывается пока live > 0
+        self.live = 30  # шарик показывается пока live > 0
 
     def set_coords(self):
         canv.coords(
@@ -52,9 +53,8 @@ class ball():
         self.x и self.y с учетом скоростей self.vx и self.vy, силы гравитации, действующей на мяч,
         и стен по краям окна (размер окна 800х600).
         """
-
-        self.live -= 1  # При каждом кадре жизнь 'пули' уменьшается
-        self.vy -= self.g
+        self.vy -= 1.2 + (abs(self.vy) / self.vy) * 0.7
+        self.vx -= (abs(self.vx) / self.vx) * 0.15
 
         if self.x > WIDTH - 3 * self.r or self.x < 2 * self.r:
             self.vx = - self.vx
@@ -64,9 +64,12 @@ class ball():
 
         if self.y + 3 * self.r > HEIGHT or self.y < 3 * self.r:
             self.vy = - self.vy
+            self.vy -= 3
             self.x += self.vx
             self.y -= self.vy
             self.set_coords()
+        if abs(self.vx) and abs(self.vy) < 1.5:
+            self.live -= 1
 
         else:
             self.x += self.vx
@@ -178,12 +181,12 @@ class target():
             self.set_coords()
 
     def set_coords(self):
-            canv.coords(
-                self.id,
-                self.x - self.r,
-                self.y - self.r,
-                self.x + self.r,
-                self.y + self.r)
+        canv.coords(
+            self.id,
+            self.x - self.r,
+            self.y - self.r,
+            self.x + self.r,
+            self.y + self.r)
 
     def hit(self, points=1):
         """Попадание шарика в цель."""
@@ -234,12 +237,12 @@ class target2():
             self.set_coords()
 
     def set_coords(self):
-            canv.coords(
-                self.id,
-                self.x - self.r,
-                self.y - self.r,
-                self.x + self.r,
-                self.y + self.r)
+        canv.coords(
+            self.id,
+            self.x - self.r,
+            self.y - self.r,
+            self.x + self.r,
+            self.y + self.r)
 
     def hit(self, points=1):
         """Попадание шарика в цель."""
